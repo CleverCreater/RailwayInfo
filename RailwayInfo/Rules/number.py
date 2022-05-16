@@ -10,6 +10,9 @@ class HighSpeed:
     def __init__(self, get):
         self.out = get
 
+    def __repr__(self):
+        return ()
+
 
 # 动车
 class Bullet:
@@ -47,6 +50,18 @@ class Slow:
         pass
 
 
+# 临时
+class Temporary:
+    def __init__(self, get):
+        self.out = get
+
+
+# 旅游
+class Tour:
+    def __init__(self, get):
+        self.out = get
+
+
 template = {
     'G/*\\d{1,3}': HighSpeed,
     'D/*\\d{1,3}': Bullet,
@@ -55,6 +70,9 @@ template = {
     'T/*\\d{1,3}': Express,
     'K/*\\d{1,3}': Fast,
     '\\d{1,4}': Slow,
+    'L/*\\d{1,3}': Temporary,
+    'A/*\\d{1,3}': Temporary,
+    'Y/*\\d{1,3}': Tour,
 }
 
 
