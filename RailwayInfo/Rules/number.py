@@ -9,11 +9,12 @@ class Train:
     def __init__(self, get):
         self.out = int(get)
         self.form = {}
+        self.name = 'Train'
 
     def __str__(self):
         for k, v in self.form.items():
             if k:
-                return v
+                return self.name + v
         else:
             return 'ERROR'
 
@@ -98,6 +99,7 @@ class Express(Train):
             9601 <= self.out <= 9800: '青藏',
             9801 <= self.out <= 9998: '增补',
         }
+        self.name = '特快'
 
 
 # 快速
@@ -125,6 +127,7 @@ class Fast(Train):
             9741 <= self.out <= 9800: '乌鲁木齐',
             9801 <= self.out <= 9850: '青藏',
         }
+        self.name = '快速'
 
 
 # 慢车
@@ -192,6 +195,7 @@ class Slow(Train):
             8951 <= self.out <= 8980: '通勤乌鲁木齐',
             8981 <= self.out <= 8998: '通勤青藏',
         }
+        self.name = '慢速'
 
 
 # 临时
@@ -219,6 +223,7 @@ class Temporary(Train):
             9741 <= self.out <= 9800: '乌鲁木齐',
             9801 <= self.out <= 9850: '青藏',
         }
+        self.name = '临时'
 
 
 # 旅游
@@ -246,6 +251,7 @@ class Tour(Train):
             941 <= self.out <= 960: '乌鲁木齐',
             961 <= self.out <= 980: '青藏',
         }
+        self.name = '旅游'
 
 
 template = {
