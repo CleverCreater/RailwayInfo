@@ -198,12 +198,54 @@ class Slow(Train):
 class Temporary(Train):
     def __init__(self, get):
         super(Temporary, self).__init__(get)
+        self.form = {
+            1 <= self.out <= 6998: '跨局',
+            7001 <= self.out <= 7300: '哈尔滨',
+            7301 <= self.out <= 7600: '沈阳',
+            7701 <= self.out <= 7800: '北京',
+            7801 <= self.out <= 7900: '太原',
+            7901 <= self.out <= 7950: '呼和浩特',
+            7951 <= self.out <= 8050: '郑州',
+            8051 <= self.out <= 8150: '武汉',
+            8151 <= self.out <= 8250: '西安',
+            8251 <= self.out <= 8350: '济南',
+            8351 <= self.out <= 8700: '上海',
+            8701 <= self.out <= 9000: '南昌',
+            9001 <= self.out <= 9300: '广铁',
+            9301 <= self.out <= 9350: '南宁',
+            9351 <= self.out <= 9600: '成都',
+            9601 <= self.out <= 9660: '昆明',
+            9661 <= self.out <= 9740: '兰州',
+            9741 <= self.out <= 9800: '乌鲁木齐',
+            9801 <= self.out <= 9850: '青藏',
+        }
 
 
 # 旅游
-class Tour:
+class Tour(Train):
     def __init__(self, get):
         super(Tour, self).__init__(get)
+        self.form = {
+            1 <= self.out <= 498: '跨局',
+            501 <= self.out <= 530: '哈尔滨',
+            531 <= self.out <= 560: '沈阳',
+            561 <= self.out <= 600: '北京',
+            601 <= self.out <= 630: '太原',
+            631 <= self.out <= 640: '呼和浩特',
+            641 <= self.out <= 670: '郑州',
+            671 <= self.out <= 700: '武汉',
+            701 <= self.out <= 730: '西安',
+            731 <= self.out <= 760: '济南',
+            761 <= self.out <= 800: '上海',
+            801 <= self.out <= 830: '南昌',
+            831 <= self.out <= 870: '广铁',
+            871 <= self.out <= 880: '南宁',
+            881 <= self.out <= 900: '成都',
+            901 <= self.out <= 920: '昆明',
+            921 <= self.out <= 940: '兰州',
+            941 <= self.out <= 960: '乌鲁木齐',
+            961 <= self.out <= 980: '青藏',
+        }
 
 
 template = {
