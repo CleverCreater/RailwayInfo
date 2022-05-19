@@ -5,9 +5,17 @@ Train Number
 import re
 
 
+class NumberError(Exception):
+    def __init__(self, num):
+        print('Number ' + num + " isn't correct")
+
+
 class Train:
     def __init__(self, get):
-        self.out = int(get)
+        try:
+            self.out = int(get)
+        except ValueError:
+            raise NumberError(get)
         self.form = {}
         self.name = 'Train'
 
@@ -21,56 +29,51 @@ class Train:
 
 # 高铁
 class HighSpeed(Train):
-    def __str__(self):
-        if 6001 <= self.out <= 9998:
-            return '管内'
-        elif 1001 <= self.out <= 5998:
-            return '跨局'
-        else:
-            return 'ERROR'
+    def __init__(self, get):
+        super(HighSpeed, self).__init__(get)
+        self.name = '高铁'
+        self.form = {
+            1001 <= self.out <= 5998: '跨局',
+            6001 <= self.out <= 9998: '管内',
+        }
 
 
 # 动车
 class Bullet(Train):
-    def __str__(self):
-        if 1 <= self.out <= 3998:
-            return '跨局'
-        elif 4501 <= self.out <= 4580:
-            return '北京'
-        elif 5001 <= self.out <= 5050:
-            return '沈阳'
-        elif 5051 <= self.out <= 5100:
-            return '西安'
-        elif 5401 <= self.out <= 5700:
-            return '上海'
-        elif 6001 <= self.out <= 6500:
-            return '济南'
-        elif 7001 <= self.out <= 7300:
-            return '广铁'
-        elif 8201 <= self.out <= 8400:
-            return '南宁'
-        else:
-            return 'ERROR'
+    def __init__(self, get):
+        super(Bullet, self).__init__(get)
+        self.name = '动车'
+        self.form = {
+            1 <= self.out <= 3998: '跨局',
+            4501 <= self.out <= 4580: '北京',
+            5001 <= self.out <= 5050: '沈阳',
+            5051 <= self.out <= 5100: '西安',
+            5401 <= self.out <= 5700: '上海',
+            6001 <= self.out <= 6500: '济南',
+            7001 <= self.out <= 7300: '广铁',
+            8201 <= self.out <= 8400: '南宁'
+        }
 
 
 # 城际
 class InterCity(Train):
-    def __str__(self):
-        if 6001 <= self.out <= 9998:
-            return '管内'
-        elif 1001 <= self.out <= 5998:
-            return '跨局'
-        else:
-            return 'ERROR'
+    def __init__(self, get):
+        super(InterCity, self).__init__(get)
+        self.name = '城际'
+        self.form = {
+            1001 <= self.out <= 5998: '跨局',
+            6001 <= self.out <= 9998: '管内',
+        }
 
 
 # 直达
 class NonStop(Train):
-    def __str__(self):
-        if 1 <= self.out <= 9998:
-            return '普线'
-        else:
-            return 'ERROR'
+    def __init__(self, get):
+        super(NonStop, self).__init__(get)
+        self.name = '直达'
+        self.form = {
+            1 <= self.out <= 1998: ''
+        }
 
 
 # 特快
@@ -271,12 +274,19 @@ template = {
 class Main:
     def __init__(self, get: str):
         out = 'NULL'
-        if re.match('[GDCZTKLYS\\d{4}]', get):
+        if type(get) != str:
+            out = 'Input Problem'
+        elif re.match('[GDCZTKLYS\\d{4}]', get):
             for k, v in template.items():
                 if re.match(k, get):
                     if re.match('\\d{4}', get):
                         get = ' ' + get
-                    out = v(get[1:].split('/')[-1]).__str__()
+                    try:
+                        out = v(get[1:].split('/')[-1]).__str__()
+                    except NumberError:
+                        out = 'Wrong'
+        else:
+            out = 'Not Find'
         self.out = out
 
     def __str__(self):
