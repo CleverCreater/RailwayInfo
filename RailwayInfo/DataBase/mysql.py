@@ -10,8 +10,3 @@ connection = pymysql.connect(
 
 
 cursor = connection.cursor()
-
-
-cursor.execute('''
-
-''')
