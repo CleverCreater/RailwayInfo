@@ -41,14 +41,8 @@ class Model(object, metaclass=ModelMetaClass):
         sql = """insert into %s (%s) values (%s)""" % (self.__table__, ','.join(fields), ','.join(args_temp))
         return sql
 
-
-class NewTable:
-    def __init__(self, mappings: dict, table: str):
-        self.mappings = mappings
-        self.table = table
-
-    def __str__(self):
+    def new(self):
         title = ''  # 数据库表头
-        for k, v in self.mappings.items():
+        for k, v in self.__mappings__.items():
             title += (v[0] + ' ' + v[1] + ',')
-        return 'create table ' + self.table + '(' + title[0: -1] + ')'
+        return 'create table ' + self.__table__ + '(' + title[0: -1] + ')'

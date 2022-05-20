@@ -14,7 +14,8 @@ class Exec:
             if problem[0] == 'no such table':
                 print('Please create table first')
             elif problem[0] == 'table User already exists':
-                pass
+                print('Already created')
             else:
                 print(problem)
         cursor.close()
+        connect.commit()
