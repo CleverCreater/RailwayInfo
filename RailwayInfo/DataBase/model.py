@@ -46,3 +46,29 @@ class Model(object, metaclass=ModelMetaClass):
         for k, v in self.__mappings__.items():
             title += (v[0] + ' ' + v[1] + ',')
         return 'create table ' + self.__table__ + '(' + title[0: -1] + ')'
+
+
+class Field:
+    def __init__(self, name: str):
+        self.name = name
+
+
+class Int(Field):
+    def __init__(self, name):
+        super(Int, self).__init__(name)
+
+    def __call__(self, signed=True):
+        if signed:
+            self.singed = ''
+        else:
+            self.singed = 'unsigned'
+        return self.name, 'int ' + self.singed
+
+
+class VarChar(Field):
+    def __init__(self, name, long: int):
+        super(VarChar, self).__init__(name)
+        self.long = str(long)
+
+    def __call__(self):
+        return self.name, 'varchar(' + self.long + ')'

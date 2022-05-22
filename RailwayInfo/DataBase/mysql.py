@@ -6,8 +6,9 @@ class MysqlUtil:
         self.db = pymysql.connect(
             user='boss',
             password='control',
-            host='192.108.101.29',
+            host='192.168.101.29',
             database='RailwayInfo',
+            port=3306,
         )
         self.cursor = self.db.cursor()
 
@@ -20,7 +21,8 @@ class MysqlUtil:
         try:
             self.cursor.execute(sql)
             self.db.commit()
-        except pymysql.Error:
+        except pymysql.Error as error:
+            print(error)
             self.db.rollback()
         finally:
             self.db.close()
