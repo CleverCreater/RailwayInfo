@@ -49,26 +49,48 @@ class Model(object, metaclass=ModelMetaClass):
 
 
 class Field:
-    def __init__(self, name: str):
+    key = 'Field'
+
+    def __init__(self, name: str, long: int, null: bool = True, default: str = '', primary_key: bool = False, unique_key: bool = False):
         self.name = name
+        self.long = str(long)
+        if null:
+            self.null = ''
+        else:
+            self.null = ' FALSE'
+        self.default = default
+        if primary_key:
+            self.primary_key = ' TRUE'
+        else:
+            self.primary_key = ''
+        if unique_key:
+            self.unique_key = ' unique key'
+        else:
+            self.unique_key = ''
+        self.sql = [self.name, self.key + '(' + self.long + ')' + self.null + self.default + self.primary_key + self.unique_key]
+
+    def __call__(self, *args, **kwargs):
+        return tuple(self.sql)
 
 
 class Int(Field):
-    def __init__(self, name):
-        super(Int, self).__init__(name)
+    key = 'int'
 
     def __call__(self, signed=True):
         if signed:
             self.singed = ''
         else:
-            self.singed = 'unsigned'
-        return self.name, 'int ' + self.singed
+            self.singed = ' unsigned'
+        return self.sql[0], self.sql[1] + self.singed
+
+
+class Float(Field):
+    key = 'float'
 
 
 class VarChar(Field):
-    def __init__(self, name, long: int):
-        super(VarChar, self).__init__(name)
-        self.long = str(long)
+    key = 'varchar'
 
-    def __call__(self):
-        return self.name, 'varchar(' + self.long + ')'
+
+class Char(Field):
+    key = 'char'
